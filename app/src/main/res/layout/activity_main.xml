@@ -17,9 +17,38 @@
         android:src="@drawable/plus"
         app:backgroundTint="@color/colorPrimary"/>
 
-    <ListView
-        android:id="@+id/listView1"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/category_input"
+                android:text=""
+                android:layout_weight="75"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/search"
+                android:text="絞り込み"
+                android:layout_weight="25"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

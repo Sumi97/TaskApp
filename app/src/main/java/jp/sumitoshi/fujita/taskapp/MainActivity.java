@@ -6,19 +6,23 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_TASK = "jp.techacademy.taro.kirameki.taskapp.TASK";
+    public final static String EXTRA_TASK = "jp.sumitoshi.fujita.taskapp";
 
     private Realm mRealm;
     private RealmResults<Task> mTaskRealmResults;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     };
     private ListView mListView;
     private TaskAdapter mTaskAdapter;
+    private EditText category_input;
+    private Button button_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +51,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        category_input = (EditText)findViewById(R.id.category_input);
+
+        button_search = (Button)findViewById(R.id.search);
+        button_search.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                String category = category_input.getText().toString();
+                Log.d("javatest", "検索数は = " +  mTaskRealmResults.size());
+
+            }
+        });
+
         // Realmの設定
         mRealm = Realm.getDefaultInstance();
-        mTaskRealmResults = mRealm.where(Task.class).findAll();
+        mTaskRealmResults = mRealm.where(Task.class).contains("category", category_input.getText().toString()).findAll();
         mTaskRealmResults.sort("date", Sort.DESCENDING);
         mRealm.addChangeListener(mRealmListener);
 

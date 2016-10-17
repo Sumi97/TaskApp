@@ -14,7 +14,4 @@ public class TaskApp extends Application {
         Realm.setDefaultConfiguration(realmConfiguration);
     }
 
-    public void equalTo(){
-
-    }
 }

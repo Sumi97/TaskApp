@@ -21,6 +21,7 @@ public class TaskAdapter extends BaseAdapter {
     }
 
     public void setTaskArrayList(ArrayList<Task> taskArrayList) {
+
         mTaskArrayList = taskArrayList;
     }
 
