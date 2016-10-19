@@ -59,17 +59,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                String category = category_input.getText().toString();
+                //String category = category_input.getText().toString();
+
+                mRealm = Realm.getDefaultInstance();
+                mTaskRealmResults = mRealm.where(Task.class).contains("category", category_input.getText().toString()).findAll();
+                mTaskRealmResults.sort("date", Sort.DESCENDING);
+                mRealm.addChangeListener(mRealmListener);
+
                 Log.d("javatest", "検索数は = " +  mTaskRealmResults.size());
+
 
             }
         });
 
-        // Realmの設定
-        mRealm = Realm.getDefaultInstance();
-        mTaskRealmResults = mRealm.where(Task.class).contains("category", category_input.getText().toString()).findAll();
-        mTaskRealmResults.sort("date", Sort.DESCENDING);
-        mRealm.addChangeListener(mRealmListener);
+       /* Realmの設定
+       mRealm = Realm.getDefaultInstance();
+       mTaskRealmResults = mRealm.where(Task.class).contains("category", category_input.getText().toString()).findAll();
+       mTaskRealmResults.sort("date", Sort.DESCENDING);
+       mRealm.addChangeListener(mRealmListener);
+       */
 
         // ListViewの設定
         mTaskAdapter = new TaskAdapter(MainActivity.this);
@@ -128,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         reloadListView();
     }
 
-    private void reloadListView() {
+   private void reloadListView() {
 
         ArrayList<Task> taskArrayList = new ArrayList<>();
 
