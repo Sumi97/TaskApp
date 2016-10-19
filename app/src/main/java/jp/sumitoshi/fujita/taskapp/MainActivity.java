@@ -66,18 +66,20 @@ public class MainActivity extends AppCompatActivity {
                 mTaskRealmResults.sort("date", Sort.DESCENDING);
                 mRealm.addChangeListener(mRealmListener);
 
+                reloadListView();
+
                 Log.d("javatest", "検索数は = " +  mTaskRealmResults.size());
 
 
             }
         });
 
-       /* Realmの設定
+       //Realmの設定
        mRealm = Realm.getDefaultInstance();
        mTaskRealmResults = mRealm.where(Task.class).contains("category", category_input.getText().toString()).findAll();
        mTaskRealmResults.sort("date", Sort.DESCENDING);
        mRealm.addChangeListener(mRealmListener);
-       */
+
 
         // ListViewの設定
         mTaskAdapter = new TaskAdapter(MainActivity.this);
